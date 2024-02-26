@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class ProfileController extends Controller
 {
@@ -59,5 +60,15 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function crearToken()
+    {
+        if (!Auth::user()) return response()->json(['error' => 'No autenticado'], 401);
+
+        Auth::user()->tokens()->delete();
+        $token = Auth::user()->createToken('token', ['usuario-registrado']);
+
+        return response()->json(['token' => $token->plainTextToken]);
     }
 }

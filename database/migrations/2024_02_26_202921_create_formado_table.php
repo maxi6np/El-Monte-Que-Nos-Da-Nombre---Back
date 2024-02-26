@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+        Schema::create('formado', function (Blueprint $table) {
+            $table->bigInteger('id_ruta');
+            $table->bigInteger('id_punto_interes')->index('fk_formado_id_punto_interes');
+
+            $table->primary(['id_ruta', 'id_punto_interes']);
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('formado');
     }
 };

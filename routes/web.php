@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+    // return ['Laravel' => app()->version()];
+    return view('welcome');
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/crearToken', [ProfileController::class, 'crearToken'])->name('profile.crearToken');

@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+        Schema::table('respuestas', function (Blueprint $table) {
+            $table->foreign(['id_pregunta'], 'fk_id_pregunta')->references(['id_pregunta'])->on('preguntas')->onUpdate('CASCADE')->onDelete('SET NULL');
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table('respuestas', function (Blueprint $table) {
+            $table->dropForeign('fk_id_pregunta');
+        });
     }
 };
