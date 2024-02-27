@@ -19,27 +19,25 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (!auth()->attempt($request->only('email', 'password'))) {
+        if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json(['message' => 'usuario o contraseña inválidos'], 422);
         }
         Auth::user()->tokens()->delete();
         $token = Auth::user()->createToken('token', ['usuario-registrado']);
 
-        return response()->json(['message' => 'correcto', 'token' => $token->plainTextToken], 200);
+        return response()->json(['message' => 'correcto', 'email'=>$request->email, 'token' => $token->plainTextToken], 200);
         
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): Response
+    public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
-
-        return response()->noContent();
+        return response()->json(['message' => 'logged out'], 200);
     }
 }
