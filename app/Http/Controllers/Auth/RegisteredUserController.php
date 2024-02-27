@@ -10,6 +10,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Validator;
+
 
 class RegisteredUserController extends Controller
 {
@@ -18,24 +20,42 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): Response
+    public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        try {
+            $validator = Validator::make($request->all(), [
+                'nombre_usuario' => ['required', 'string', 'max:255', 'unique:usuarios'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios'],
+                'password' => ['required', 'string'],
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellidos' => ['required', 'string', 'max:255'],
+                'fecha_nacimiento' => ['required','date'],
+            ]);
+            
+            if ($validator->fails()) {
+                return response()->json(['message' => 'La validación ha fallado', 'errors' => $validator->errors()], 422);
+            }
+            $user = User::create([
+                'nombre_usuario' => $request->nombre_usuario,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'nombre' => $request->nombre,
+                'apellidos' => $request->apellidos,
+                'fecha_nacimiento' => $request->fecha_nacimiento,
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+            event(new Registered($user));
 
-        event(new Registered($user));
+            Auth::login($user);
 
-        Auth::login($user);
-
-        return response()->noContent();
+            return response()->json(['message' => 'Usuario registrado correctamente', $user], 201);
+        } catch (\Illuminate\Database\QueryException $exception) {
+            $errorCode = $exception->errorInfo[1];
+            if ($errorCode === 1062) { // Código de error para violación de restricción única
+                return response()->json(['message' => 'El correo electrónico o nombre de usuario ya está en uso'], 422);
+            }
+            // Manejar otros errores de base de datos si es necesario
+            return response()->json(['message' => 'Error al procesar la solicitud'], 500);
+        }
     }
 }
