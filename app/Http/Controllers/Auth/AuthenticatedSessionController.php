@@ -16,7 +16,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-
         $request->session()->regenerate();
 
         if (!auth()->attempt($request->only('email', 'password'))) {
