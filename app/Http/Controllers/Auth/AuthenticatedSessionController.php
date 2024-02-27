@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -21,7 +22,11 @@ class AuthenticatedSessionController extends Controller
         if (!auth()->attempt($request->only('email', 'password'))) {
             return response()->json(['message' => 'usuario o contraseña inválidos'], 422);
         }
+        Auth::user()->tokens()->delete();
+        $token = Auth::user()->createToken('token', ['usuario-registrado']);
+
         return response()->json(['message' => 'correcto'], 200);
+        
     }
 
     /**
