@@ -15,8 +15,8 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
-    // return ['Laravel' => app()->version()];
-    return view('welcome');
+    return ['Laravel' => app()->version()];
+    // return view('welcome');
 });
 
 require __DIR__.'/auth.php';
