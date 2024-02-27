@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\PuntoInteres;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -24,5 +26,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('usuarios')->delete();
         $this->call(UsuarioSeeder::class);
+
+        DB::table('puntos_interes')->delete();
+        $this->call(PuntoInteresSeeder::class);
     }
 }

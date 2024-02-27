@@ -8,5 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class PuntoInteres extends Model
 {
     use HasFactory;
-    protected $table='puntos_interes';
+    protected $table = 'puntos_interes';
+    protected $fillable = [
+        'latitud',
+        'longitud',
+        'nombre',
+        'descripcion',
+        'id_categoriaP'
+    ];
+    public $timestamps = false;
 }
