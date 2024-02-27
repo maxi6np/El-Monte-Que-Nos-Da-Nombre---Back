@@ -25,7 +25,7 @@ class AuthenticatedSessionController extends Controller
         $token = Auth::user()->createToken('token', ['usuario-registrado']);
 
         return response()->json(['message' => 'correcto', 'email'=>$request->email, 'token' => $token->plainTextToken], 200);
-        
+
     }
 
     /**
