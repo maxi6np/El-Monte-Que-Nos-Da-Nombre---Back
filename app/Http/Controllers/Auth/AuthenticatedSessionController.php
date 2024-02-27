@@ -25,7 +25,7 @@ class AuthenticatedSessionController extends Controller
         Auth::user()->tokens()->delete();
         $token = Auth::user()->createToken('token', ['usuario-registrado']);
 
-        return response()->json(['message' => 'correcto'], 200);
+        return response()->json(['message' => 'correcto', 'token' => $token->plainTextToken], 200);
         
     }
 
