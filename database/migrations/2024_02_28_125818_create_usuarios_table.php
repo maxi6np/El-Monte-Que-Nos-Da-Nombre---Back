@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('apellidos', 100)->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->boolean('verificado')->nullable();
+            $table->boolean('admin')->nullable();
         });
     }
 

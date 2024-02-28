@@ -21,6 +21,7 @@ return new class extends Migration
             $table->dateTime('fecha_creacion')->nullable();
             $table->string('imagen_principal')->nullable();
             $table->text('descripcion')->nullable();
+            $table->boolean('publica')->nullable();
             $table->bigInteger('id_usuario')->nullable()->index('fk_id_usuario');
         });
     }
