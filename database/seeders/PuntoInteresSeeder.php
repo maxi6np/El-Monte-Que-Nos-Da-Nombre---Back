@@ -93,6 +93,70 @@ class PuntoInteresSeeder extends Seeder
             'descripcion' => 'Antiguos hornos de cal ubicados en el Monte Naranco.',
             'imagen' => ''
 
+        ],
+        [
+            'latitud' => '43.36821286087735',
+            'longitud' => '-5.860387202855101',
+            'nombre' => 'Calle Cuatro Ases de la canción asturiana',
+            'descripcion' => 'Calle Cuatro Ases de la canción asturiana',
+            'imagen' => ''
+
+        ],
+        [
+            'latitud' => '43.36818075859578',
+            'longitud' => '-5.857244862374825',
+            'nombre' => 'Calle Naranjo de Bulnes',
+            'descripcion' => 'Calle Naranjo de Bulnes',
+            'imagen' => ''
+
+        ],
+        [
+            'latitud' => '43.3686202625805',
+            'longitud' => '-5.856973747032662',
+            'nombre' => 'Calle Monte Gamonal',
+            'descripcion' => 'Calle Monte Gamonal',
+            'imagen' => ''
+
+        ],
+        [
+            'latitud' => '43.36865595602057',
+            'longitud' => '-5.854877147032674',
+            'nombre' => 'Calle Monte Auseva',
+            'descripcion' => 'Calle Monte Auseva',
+            'imagen' => ''
+
+        ],
+        [
+            'latitud' => '43.36917816092633',
+            'longitud' => '-5.8567602605260785',
+            'nombre' => 'Calle Montes del Sueve',
+            'descripcion' => 'Calle Montes del Sueve',
+            'imagen' => ''
+
+        ],
+        [
+            'latitud' => '43.371041355652366',
+            'longitud' => '-5.854304374019433',
+            'nombre' => 'Calle Torrecerredo',
+            'descripcion' => 'Calle Torrecerredo',
+            'imagen' => ''
+
+        ],
+        [
+            'latitud' => '43.368631058024164',
+            'longitud' => '-5.8600254740195155',
+            'nombre' => 'Calle Peña Ubiña',
+            'descripcion' => 'Calle Peña Ubiña',
+            'imagen' => ''
+
+        ],
+        [
+            'latitud' => '43.365962267954366',
+            'longitud' => '-5.8587129893617345',
+            'nombre' => 'Calle Peña Santa de Enol',
+            'descripcion' => 'Calle Peña Santa de Enol',
+            'imagen' => ''
+
         ]
     ];
 
