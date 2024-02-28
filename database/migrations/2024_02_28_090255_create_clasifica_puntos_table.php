@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categorias_trabajos', function (Blueprint $table) {
-            $table->bigInteger('id_categoriaT', true);
-            $table->string('departamento', 45)->nullable();
-            $table->string('curso', 45)->nullable();
-            $table->text('descripcion')->nullable();
+        Schema::create('clasifica_puntos', function (Blueprint $table) {
+            $table->bigInteger('id_punto_interes');
+            $table->bigInteger('id_categoriaP')->index('fk_categoriaP_clasifica');
+
+            $table->primary(['id_punto_interes', 'id_categoriaP']);
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorias_trabajos');
+        Schema::dropIfExists('clasifica_puntos');
     }
 };

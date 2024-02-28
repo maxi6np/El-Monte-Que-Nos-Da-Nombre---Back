@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('nombre', 45)->nullable();
             $table->string('apellidos', 100)->nullable();
             $table->date('fecha_nacimiento')->nullable();
+            $table->boolean('verificado')->nullable();
         });
     }
 

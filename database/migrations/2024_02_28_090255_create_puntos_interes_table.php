@@ -19,7 +19,7 @@ return new class extends Migration
             $table->double('longitud');
             $table->string('nombre', 100)->nullable();
             $table->text('descripcion')->nullable();
-            $table->bigInteger('id_categoriaP')->nullable()->index('fk_id_categoriaP');
+            $table->string('imagen')->nullable();
 
             $table->unique(['latitud', 'longitud'], 'coordenadas');
         });

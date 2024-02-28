@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('idioma', 50)->nullable();
             $table->boolean('movil')->nullable();
             $table->bigInteger('id_punto_interes')->nullable()->index('fk_trabajos_id_punto_interes');
-            $table->bigInteger('id_categoriaT')->nullable()->index('fk_trabajos_id_categoriaT');
         });
     }
 

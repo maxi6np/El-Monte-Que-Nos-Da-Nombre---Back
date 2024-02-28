@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('puntos_interes', function (Blueprint $table) {
-            $table->foreign(['id_categoriaP'], 'fk_id_categoriaP')->references(['id_categoriaP'])->on('categorias_puntos')->onUpdate('CASCADE')->onDelete('SET NULL');
+        Schema::table('rutas', function (Blueprint $table) {
+            $table->foreign(['id_usuario'], 'rutas_ibfk_1')->references(['id_usuario'])->on('usuarios')->onUpdate('CASCADE')->onDelete('SET NULL');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('puntos_interes', function (Blueprint $table) {
-            $table->dropForeign('fk_id_categoriaP');
+        Schema::table('rutas', function (Blueprint $table) {
+            $table->dropForeign('rutas_ibfk_1');
         });
     }
 };

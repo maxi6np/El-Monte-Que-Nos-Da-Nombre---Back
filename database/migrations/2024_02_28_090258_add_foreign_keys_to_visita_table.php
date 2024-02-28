@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('visita', function (Blueprint $table) {
-            $table->foreign(['id_punto_interes'], 'fk_visita_id_punto_interes')->references(['id_punto_interes'])->on('puntos_interes')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign(['id_usuario'], 'fk_visita_id_usuario')->references(['id_usuario'])->on('usuarios')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['id_usuario'], 'visita_ibfk_1')->references(['id_usuario'])->on('usuarios')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['id_punto_interes'], 'visita_ibfk_2')->references(['id_punto_interes'])->on('puntos_interes')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -27,8 +27,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('visita', function (Blueprint $table) {
-            $table->dropForeign('fk_visita_id_punto_interes');
-            $table->dropForeign('fk_visita_id_usuario');
+            $table->dropForeign('visita_ibfk_1');
+            $table->dropForeign('visita_ibfk_2');
         });
     }
 };

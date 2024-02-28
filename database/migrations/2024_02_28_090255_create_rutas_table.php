@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('dificultad', ['baja', 'media', 'alta'])->nullable();
             $table->dateTime('fecha_creacion')->nullable();
             $table->string('imagen_principal')->nullable();
+            $table->text('descripcion')->nullable();
             $table->bigInteger('id_usuario')->nullable()->index('fk_id_usuario');
         });
     }

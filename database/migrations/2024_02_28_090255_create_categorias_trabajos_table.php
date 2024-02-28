@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('preguntas', function (Blueprint $table) {
-            $table->foreign(['id_trabajo'], 'fk_id_trabajo')->references(['id_trabajo'])->on('trabajos')->onUpdate('CASCADE')->onDelete('SET NULL');
+        Schema::create('categorias_trabajos', function (Blueprint $table) {
+            $table->bigInteger('id_categoriaT', true);
+            $table->string('nombre', 45)->nullable();
+            $table->text('descripcion')->nullable();
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('preguntas', function (Blueprint $table) {
-            $table->dropForeign('fk_id_trabajo');
-        });
+        Schema::dropIfExists('categorias_trabajos');
     }
 };
