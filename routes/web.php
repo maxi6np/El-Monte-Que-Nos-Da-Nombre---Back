@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PuntosInteresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,5 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/crearToken', [ProfileController::class, 'crearToken'])->name('profile.crearToken');
+
+Route::get('/mapa-puntos', [PuntosInteresController::class, 'getPuntos'])->name('getPuntos');
