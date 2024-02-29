@@ -29,5 +29,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('puntos_interes')->delete();
         $this->call(PuntoInteresSeeder::class);
+
+        DB::table('trabajos')->delete();
+        $this->call(TrabajosSeeder::class);
     }
 }

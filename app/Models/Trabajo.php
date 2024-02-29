@@ -10,4 +10,8 @@ class Trabajo extends Model
     use HasFactory;
     protected $table = 'trabajos';
 
+    public function punto(){
+        return $this->BelongsTo(PuntoInteres::class);
+    }
+
 }

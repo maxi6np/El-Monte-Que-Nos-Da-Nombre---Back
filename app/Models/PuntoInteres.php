@@ -17,4 +17,8 @@ class PuntoInteres extends Model
         'id_categoriaP'
     ];
     public $timestamps = false;
+
+    public function trabajos(){
+        return $this->hasMany(Trabajo::class);
+    }
 }
