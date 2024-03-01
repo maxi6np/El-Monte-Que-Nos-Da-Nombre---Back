@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Resources;
+use Illuminate\Http\Request;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PuntosResource extends JsonResource
+class TrabajosResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,13 +15,13 @@ class PuntosResource extends JsonResource
      */
     public function toArray($request)
     {
-        return[
-            'latitud'=> $this->latitud,
-            'longitud'=>$this->longitud,
-            'nombre'=>$this->nombre,
-            'descripcion'=>$this->descripcion,
-            'imagen' => $this->imagen,
-            'trabajos' => TrabajosResource::collection($this->whenLoaded('trabajos'))
+        return [
+            'nombre' => $this->nombre,
+            'texto' => $this->texto,
+            'URL' => $this->URL,
+            'tipo' => $this->tipo,
+            'idioma' => $this->idioma,
+            'movil' => $this->movil
         ];
     }
 }

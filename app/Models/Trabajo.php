@@ -9,6 +9,16 @@ class Trabajo extends Model
 {
     use HasFactory;
     protected $table = 'trabajos';
+    protected $primaryKey = 'id_trabajo';
+    protected $fillable = [
+        'nombre',
+        'texto',
+        'URL',
+        'tipo',
+        'idioma',
+        'movil',
+        'id_punto_interes'
+    ];
     public $timestamps = false;
 
     public function punto(){
