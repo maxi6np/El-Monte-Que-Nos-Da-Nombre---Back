@@ -21,7 +21,7 @@ class Trabajo extends Model
     public $timestamps = false;
 
     public function punto(){
-        return $this->BelongsTo(PuntoInteres::class);
+        return $this->BelongsTo(PuntoInteres::class, 'id_punto_interes');
     }
 
 }

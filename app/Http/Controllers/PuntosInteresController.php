@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PuntosCollection;
 use App\Models\PuntoInteres;
+use App\Models\Trabajo;
 use Illuminate\Http\Request;
 
 class PuntosInteresController extends Controller
@@ -14,7 +15,7 @@ class PuntosInteresController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    
+
     public function getPuntos(){
         $puntosInteres = PuntoInteres::all();
         return response()->json($puntosInteres);
@@ -22,7 +23,13 @@ class PuntosInteresController extends Controller
 
     public function getPuntosConTrabajos(){
         $relaciones = ['trabajos'];
-        $puntos = PuntoInteres::with($relaciones);
-        return new PuntosCollection($puntos->get());
+        $puntos = PuntoInteres::with($relaciones)->get();
+        return new PuntosCollection($puntos);
+    }
+
+    public function getTrabajos()
+    {
+        $puntosInteres = Trabajo::all();
+        return response()->json($puntosInteres);
     }
 }

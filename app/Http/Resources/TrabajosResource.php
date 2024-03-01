@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
+use Illuminate\Http\Request;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,8 +21,7 @@ class TrabajosResource extends JsonResource
             'URL' => $this->URL,
             'tipo' => $this->tipo,
             'idioma' => $this->idioma,
-            'movil' => $this->movil,
-            'id_punto_interes' => $this->id_punto_interes,
+            'movil' => $this->movil
         ];
     }
 }

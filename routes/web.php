@@ -25,3 +25,4 @@ require __DIR__.'/auth.php';
 Route::get('/crearToken', [ProfileController::class, 'crearToken'])->name('profile.crearToken');
 Route::get('/mapa-puntos', [PuntosInteresController::class, 'getPuntos'])->name('getPuntos');
 Route::get('/puntos-trabajos', [PuntosInteresController::class, 'getPuntosConTrabajos'])->name('getPuntosConTrabajos');
+Route::get('/trabajos', [PuntosInteresController::class, 'getTrabajos'])->name('getTabajos');
