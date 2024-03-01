@@ -6,6 +6,7 @@ use App\Models\PuntoInteres;
 use App\Models\Ruta;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 
 class RutasSeeder extends Seeder
 {
@@ -15,42 +16,42 @@ class RutasSeeder extends Seeder
      * @return void
      */
 
-     private $rutas = [
-        [
-            'nombre' => 'ruta1',
-            'duracion' => 2,
-            'dificultad' => 'baja',
-            'fecha_creacion' => '2023/02/02',
-            'imagen_principal' => 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Cristo_del_Naranco.JPG',
-            'descripcion' => 'ruta al cristo',
-            'publica' => true,
-            'id_usuario' => 1
-        ],
-        [
-            'nombre' => 'ruta2',
-            'duracion' => 4,
-            'dificultad' => 'alta',
-            'fecha_creacion' => '2023/02/02',
-            'imagen_principal' => 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Cristo_del_Naranco.JPG',
-            'descripcion' => 'ruta al cristo',
-            'publica' => true,
-            'id_usuario' => 2
-        ],
-        [
-            'nombre' => 'ruta1',
-            'duracion' => 5,
-            'dificultad' => 'media',
-            'fecha_creacion' => '2023/02/02',
-            'imagen_principal' => 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Cristo_del_Naranco.JPG',
-            'descripcion' => 'ruta al cristo',
-            'publica' => false,
-            'id_usuario' => 3
-        ]
-
-        ];
     public function run()
     {
-        foreach($this-> rutas as $ruta){
+        $rutas = [
+            [
+                'nombre' => 'ruta1',
+                'duracion' => '2',
+                'dificultad' => 'baja',
+                'fecha_creacion' => '2023/02/02',
+                'imagen_principal' => 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Cristo_del_Naranco.JPG',
+                'descripcion' => 'ruta al cristo',
+                'publica' => true,
+                'id_usuario' => User::all()->random()->id_usuario
+            ],
+            [
+                'nombre' => 'ruta2',
+                'duracion' => 4,
+                'dificultad' => 'alta',
+                'fecha_creacion' => '2023/02/02',
+                'imagen_principal' => 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Cristo_del_Naranco.JPG',
+                'descripcion' => 'ruta al cristo',
+                'publica' => true,
+                'id_usuario' => User::all()->random()->id_usuario
+            ],
+            [
+                'nombre' => 'ruta1',
+                'duracion' => '5',
+                'dificultad' => 'media',
+                'fecha_creacion' => '2023/02/02',
+                'imagen_principal' => 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Cristo_del_Naranco.JPG',
+                'descripcion' => 'ruta al cristo',
+                'publica' => false,
+                'id_usuario' => User::all()->random()->id_usuario
+            ]
+
+        ];
+        foreach ($rutas as $ruta) {
             $rutanueva = new Ruta();
             $rutanueva->nombre = $ruta['nombre'];
             $rutanueva->duracion = $ruta['duracion'];
@@ -67,7 +68,6 @@ class RutasSeeder extends Seeder
                 PuntoInteres::all()->skip(8)->take(4)->random()->id_punto_interes,
 
             ]);
-
         }
     }
 }

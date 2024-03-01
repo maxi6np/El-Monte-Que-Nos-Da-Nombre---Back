@@ -84,15 +84,14 @@ class PuntoInteresSeeder extends Seeder
             'longitud' => '-5.882923362939819',
             'nombre' => 'Mina Pastora y Mina Gorgota',
             'descripcion' => 'Antiguas minas de extracción de carbón ubicadas en el Monte Naranco.',
-            'imagen' => 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.turismoextremadura.com%2Fviajar%2Fshared%2Fgalerias%2Frrtt%2Fmonumentos%2Fmonumento_00289%2Fimg%2FA_MINA_PASTORA_01.JPG&tbnid=Zz4YzAXq8qWJvM&vet=12ahUKEwi3s9Kh89OEAxX5TKQEHUxdDQgQMygAegQIARBO..i&imgrefurl=https%3A%2F%2Fwww.turismoextremadura.com%2Fes%2Fexplora%2FMina-la-Pastora%2F%3Flang%3Des&docid=7CGHt8sdxG5l5M&w=1280&h=853&q=Mina%20Pastora%20y%20Mina%20Gorgota&ved=2ahUKEwi3s9Kh89OEAxX5TKQEHUxdDQgQMygAegQIARBO'
+            'imagen' => ''
         ],
         [
             'latitud' => '43.566534993114786',
             'longitud' => '-5.818245441487321',
             'nombre' => 'Los caleros del Naranco',
             'descripcion' => 'Antiguos hornos de cal ubicados en el Monte Naranco.',
-            'imagen' => 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.descubreelnaranco.com%2Fimg%2Fmuslera_frontal.jpg&tbnid=6O2K3tgsNGGPfM&vet=12ahUKEwiM8Z6r89OEAxWfmScCHRJRAo8QMygAegQIARAw..i&imgrefurl=https%3A%2F%2Fwww.descubreelnaranco.com%2Fhtml%2Fcaleros.html&docid=41hDqcxq-r2XJM&w=4023&h=2714&q=%20%20%20%20%20%20%20%20%20%20%20%20%27nombre%27%20%3D%3E%20%27Los%20caleros%20del%20Naranco%27%2C&ved=2ahUKEwiM8Z6r89OEAxWfmScCHRJRAo8QMygAegQIARAw'
-
+            'imagen' => ''
         ],
         [
             'latitud' => '43.36821286087735',
