@@ -13,8 +13,7 @@ class PuntoInteres extends Model
         'latitud',
         'longitud',
         'nombre',
-        'descripcion',
-        'id_categoriaP'
+        'descripcion'
     ];
     public $timestamps = false;
 

@@ -20,10 +20,12 @@ class Ruta extends Model
         'publica',
         'id_usuario'
     ];
-
+    public $timestamps = false;
     public function puntos_interes(){
         return $this->BelongsToMany(PuntoInteres::class);
     }
+
+
 
 }
 
