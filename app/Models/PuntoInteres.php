@@ -9,6 +9,7 @@ class PuntoInteres extends Model
 {
     use HasFactory;
     protected $table = 'puntos_interes';
+    protected $primaryKey = 'id_punto_interes';
     protected $fillable = [
         'latitud',
         'longitud',
@@ -22,6 +23,6 @@ class PuntoInteres extends Model
     }
 
     public function rutas(){
-        return $this->belongsToMany(Ruta::class);
+        return $this->belongsToMany(Ruta::class, 'formado', 'id_punto_interes', 'id_ruta');
     }
 }

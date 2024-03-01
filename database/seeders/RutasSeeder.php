@@ -62,12 +62,12 @@ class RutasSeeder extends Seeder
             $rutanueva->id_usuario = $ruta['id_usuario'];
             $rutanueva->save();
             $rutanueva->puntos_interes()->attach([
-                PuntoInteres::all()->skip(0)->take(4)->random()->id,
-                PuntoInteres::all()->skip(4)->take(4)->random()->id,
-                PuntoInteres::all()->skip(8)->take(4)->random()->id,
+                PuntoInteres::all()->skip(0)->take(4)->random()->id_punto_interes,
+                PuntoInteres::all()->skip(4)->take(4)->random()->id_punto_interes,
+                PuntoInteres::all()->skip(8)->take(4)->random()->id_punto_interes,
 
             ]);
-            
+
         }
     }
 }
