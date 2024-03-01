@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PuntosCollection;
 use App\Models\PuntoInteres;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,8 @@ class PuntosInteresController extends Controller
     }
 
     public function getPuntosConTrabajos(){
-        
+        $relaciones = ['trabajos'];
+        $puntos = PuntoInteres::with($relaciones);
+        return new PuntosCollection($puntos->get());
     }
 }

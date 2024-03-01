@@ -25,7 +25,7 @@ class TrabajosSeeder extends Seeder
                 'tipo' => 'texto',
                 'idioma' => 'es',
                 'movil' => 0,
-                'id_punto_interes' => PuntoInteres::all()->random()->id_punto_interes
+                'punto_interes_id' => PuntoInteres::all()->random()->punto_interes_id
             ],
             [
                 'nombre' => 'trabajovideo',
@@ -34,7 +34,7 @@ class TrabajosSeeder extends Seeder
                 'tipo' => 'video',
                 'idioma' => 'es',
                 'movil' => 0,
-                'id_punto_interes' => PuntoInteres::all()->random()->id_punto_interes
+                'punto_interes_id' => PuntoInteres::all()->random()->punto_interes_id
             ],
             [
                 'nombre' => 'trabajoaudio',
@@ -43,7 +43,7 @@ class TrabajosSeeder extends Seeder
                 'tipo' => 'audio',
                 'idioma' => 'es',
                 'movil' => 1,
-                'id_punto_interes' => PuntoInteres::all()->random()->id_punto_interes
+                'punto_interes_id' => PuntoInteres::all()->random()->punto_interes_id
             ],
             [
                 'nombre' => 'trabajoimagen',
@@ -52,7 +52,7 @@ class TrabajosSeeder extends Seeder
                 'tipo' => 'audio',
                 'idioma' => 'en',
                 'movil' => 1,
-                'id_punto_interes' => PuntoInteres::all()->random()->id_punto_interes
+                'punto_interes_id' => PuntoInteres::all()->random()->punto_interes_id
 
             ],
             [
@@ -66,7 +66,7 @@ class TrabajosSeeder extends Seeder
                 'tipo' => 'texto',
                 'idioma' => 'es',
                 'movil' => 0,
-                'id_punto_interes' => PuntoInteres::all()->random()->id_punto_interes
+                'punto_interes_id' => PuntoInteres::all()->random()->punto_interes_id
             ],
             [
                 'nombre' => 'trabajovideo2',
@@ -75,7 +75,7 @@ class TrabajosSeeder extends Seeder
                 'tipo' => 'video',
                 'idioma' => 'es',
                 'movil' => 0,
-                'id_punto_interes' => PuntoInteres::all()->random()->id_punto_interes
+                'punto_interes_id' => PuntoInteres::all()->random()->punto_interes_id
             ],
             [
                 'nombre' => 'trabajoaudio2',
@@ -84,7 +84,7 @@ class TrabajosSeeder extends Seeder
                 'tipo' => 'audio',
                 'idioma' => 'es',
                 'movil' => 1,
-                'id_punto_interes' => PuntoInteres::all()->random()->id_punto_interes
+                'punto_interes_id' => PuntoInteres::all()->random()->punto_interes_id
             ],
             [
                 'nombre' => 'trabajoimagen2',
@@ -93,7 +93,7 @@ class TrabajosSeeder extends Seeder
                 'tipo' => 'video',
                 'idioma' => 'en',
                 'movil' => 1,
-                'id_punto_interes' => PuntoInteres::all()->random()->id_punto_interes
+                'punto_interes_id' => PuntoInteres::all()->random()->punto_interes_id
 
             ]
         ];
@@ -107,7 +107,7 @@ class TrabajosSeeder extends Seeder
             $nuevoTrabajo->tipo = $trabajo['tipo'];
             $nuevoTrabajo->idioma = $trabajo['idioma'];
             $nuevoTrabajo->movil = $trabajo['movil'];
-            $nuevoTrabajo->id_punto_interes = $trabajo['id_punto_interes'];
+            $nuevoTrabajo->punto_interes_id = $trabajo['punto_interes_id'];
             $nuevoTrabajo->save();
         }
 
