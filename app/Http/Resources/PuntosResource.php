@@ -19,7 +19,7 @@ class PuntosResource extends JsonResource
             'longitud'=>$this->longitud,
             'nombre'=>$this->nombre,
             'descripcion'=>$this->descripcion,
-            'id_categoriaP'=>$this->id_categoriaP
+            'trabajos' => TrabajosResource::collection($this->whenLoaded('trabajos'))
         ];
     }
 }

@@ -14,6 +14,14 @@ class TrabajosResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'nombre' => $this->nombre,
+            'texto' => $this->texto,
+            'URL' => $this->URL,
+            'tipo' => $this->tipo,
+            'idioma' => $this->idioma,
+            'movil' => $this->movil,
+            'id_punto_interes' => $this->id_punto_interes,
+        ];
     }
 }

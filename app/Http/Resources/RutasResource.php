@@ -24,7 +24,6 @@ class RutasResource extends JsonResource
             'publica' => $this->publica,
             'id_usuario'=> $this-> id_usuario,
             'puntos_interes' => PuntosResource::collection($this->whenLoaded('puntos_interes'))
-
         ];
     }
 }
