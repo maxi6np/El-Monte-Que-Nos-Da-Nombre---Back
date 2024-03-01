@@ -21,4 +21,8 @@ class PuntoInteres extends Model
     public function trabajos(){
         return $this->hasMany(Trabajo::class);
     }
+
+    public function rutas(){
+        return $this->belongsToMany(Ruta::class);
+    }
 }
