@@ -22,7 +22,11 @@ class Ruta extends Model
     ];
     public $timestamps = false;
     public function puntos_interes(){
-        return $this->BelongsToMany(PuntoInteres::class);
+        return $this->belongsToMany(PuntoInteres::class);
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class);
     }
 
 
