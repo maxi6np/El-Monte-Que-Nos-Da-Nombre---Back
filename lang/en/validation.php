@@ -166,6 +166,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'email' => [
+            'email' => 'Introduzca un email válido'
+        ]
     ],
 
     /*
