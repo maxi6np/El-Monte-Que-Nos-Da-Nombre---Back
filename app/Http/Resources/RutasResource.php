@@ -20,7 +20,7 @@ class RutasResource extends JsonResource
             'dificultad' => $this->dificultad,
             'fecha_creacion'=>$this->fecha_creacion,
             'imagen_principal' => $this->imagen_principal,
-            'descripcion'=> $this->usuario,
+            'descripcion'=> $this->descripcion,
             'publica' => $this->publica,
             'id_usuario'=> $this-> id_usuario,
             'puntos_interes' => PuntosResource::collection($this->whenLoaded('puntos_interes'))
