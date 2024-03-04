@@ -29,6 +29,6 @@ class PuntoInteres extends Model
     }
 
     public function visitados(){
-        return $this->belongsToMany(User::class, 'visita', 'id_punto_interes', 'id_usuario');
+        return $this->belongsToMany(User::class, 'visita', 'id_punto_interes', 'id_usuario')->as('visita')->withPivot('completado');
     }
 }

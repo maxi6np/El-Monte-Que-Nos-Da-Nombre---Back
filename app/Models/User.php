@@ -53,6 +53,8 @@ class User extends Authenticatable
         return $this->hasMany(Ruta::class);
     }
     public function visitados(){
-        return $this->belongsToMany(User::class, 'visita', 'id_usuario', 'id_punto_interes');
+        return $this->belongsToMany(User::class, 'visita', 'id_usuario', 'id_punto_interes')->as('visita')->withPivot('completado');
     }
+
+
 }

@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\PuntoInteres;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PuntoInteresSeeder extends Seeder
 {
@@ -172,6 +173,11 @@ class PuntoInteresSeeder extends Seeder
             $ptoInteres->descripcion = $punto['descripcion'];
             $ptoInteres->imagen = $punto['imagen'];
             $ptoInteres->save();
+            $ptoInteres->visitados()->attach([
+                User::all()->skip(0)->take(3)->random()->id_usuario,
+
+            ], ['completado' => rand(0,1)]);
+
         }
         $this->command->info('Tabla de puntos de interés inicializada con datos');
     }

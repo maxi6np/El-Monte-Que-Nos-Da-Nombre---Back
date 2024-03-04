@@ -33,5 +33,10 @@ class Ruta extends Model
 
 
 
+
+
+
+
+
 }
 

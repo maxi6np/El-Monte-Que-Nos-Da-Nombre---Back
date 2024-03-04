@@ -9,7 +9,6 @@ class Visita extends Model
 {
     use HasFactory;
     protected $table = 'visita';
-    protected $primaryKey= ['id_punto_interes', 'id_usuario'];
     protected $fillable = [
         'completado'
     ];

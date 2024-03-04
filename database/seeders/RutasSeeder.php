@@ -40,7 +40,7 @@ class RutasSeeder extends Seeder
                 'id_usuario' => User::all()->random()->id_usuario
             ],
             [
-                'nombre' => 'ruta1',
+                'nombre' => 'ruta3',
                 'duracion' => '5',
                 'dificultad' => 'media',
                 'fecha_creacion' => '2023/02/02',
