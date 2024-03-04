@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\User;
 
 class Ruta extends Model
 {
     use HasFactory;
     protected $table = 'rutas';
+    protected $primaryKey= 'id_ruta';
     protected $fillable = [
         'nombre',
         'duracion',
@@ -22,7 +24,11 @@ class Ruta extends Model
     ];
     public $timestamps = false;
     public function puntos_interes(){
-        return $this->BelongsToMany(PuntoInteres::class);
+        return $this->belongsToMany(PuntoInteres::class, 'formado', 'id_ruta', 'id_punto_interes',);
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class);
     }
 
 

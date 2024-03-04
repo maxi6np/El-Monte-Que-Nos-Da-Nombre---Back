@@ -27,4 +27,4 @@ Route::get('/crearToken', [ProfileController::class, 'crearToken'])->name('profi
 
 Route::get('/mapa-puntos', [PuntosInteresController::class, 'getPuntos'])->name('getPuntos');
 
-Route::get('/get-rutas', [RutasController::class, 'getRutas'])->name('getRutas');
+Route::post('/get-rutas', [RutasController::class, 'getRutas'])->name('getRutas');
