@@ -87,8 +87,8 @@ class PuntoInteresSeeder extends Seeder
             'imagen' => ''
         ],
         [
-            'latitud' => '43.566534993114786',
-            'longitud' => '-5.818245441487321',
+            'latitud' => '43.400566',
+            'longitud' => '-5.838617',
             'nombre' => 'Los caleros del Naranco',
             'descripcion' => 'Antiguos hornos de cal ubicados en el Monte Naranco.',
             'imagen' => ''
