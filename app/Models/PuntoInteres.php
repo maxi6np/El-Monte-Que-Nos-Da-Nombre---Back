@@ -27,4 +27,8 @@ class PuntoInteres extends Model
     public function rutas(){
         return $this->belongsToMany(Ruta::class, 'formado', 'id_punto_interes', 'id_ruta');
     }
+
+    public function visitados(){
+        return $this->belongsToMany(User::class, 'visita', 'id_punto_interes', 'id_usuario');
+    }
 }

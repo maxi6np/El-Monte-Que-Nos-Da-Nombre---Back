@@ -52,4 +52,7 @@ class User extends Authenticatable
     public function rutas(){
         return $this->hasMany(Ruta::class);
     }
+    public function visitados(){
+        return $this->belongsToMany(User::class, 'visita', 'id_usuario', 'id_punto_interes');
+    }
 }
