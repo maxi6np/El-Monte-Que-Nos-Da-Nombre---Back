@@ -14,13 +14,15 @@ class PuntoInteres extends Model
         'latitud',
         'longitud',
         'nombre',
-        'descripcion'
+        'descripcion',
+        'imagen'
     ];
     public $timestamps = false;
 
     public function trabajos(){
-        return $this->hasMany(Trabajo::class);
+        return $this->hasMany(Trabajo::class, 'id_punto_interes');
     }
+
 
     public function rutas(){
         return $this->belongsToMany(Ruta::class, 'formado', 'id_punto_interes', 'id_ruta');
