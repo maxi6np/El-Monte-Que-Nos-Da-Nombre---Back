@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\PuntoInteres;
+use App\Models\Ruta;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class RutasSeeder extends Seeder
 {
@@ -48,6 +50,24 @@ class RutasSeeder extends Seeder
         ];
     public function run()
     {
-        
+        foreach($this-> rutas as $ruta){
+            $rutanueva = new Ruta();
+            $rutanueva->nombre = $ruta['nombre'];
+            $rutanueva->duracion = $ruta['duracion'];
+            $rutanueva->dificultad = $ruta['dificultad'];
+            $rutanueva->fecha_creacion = $ruta['fecha_creacion'];
+            $rutanueva->imagen_principal = $ruta['imagen_principal'];
+            $rutanueva->descripcion = $ruta['descripcion'];
+            $rutanueva->publica = $ruta['publica'];
+            $rutanueva->id_usuario = $ruta['id_usuario'];
+            $rutanueva->save();
+            $rutanueva->puntos_interes()->attach([
+                PuntoInteres::all()->skip(0)->take(4)->random()->id,
+                PuntoInteres::all()->skip(4)->take(4)->random()->id,
+                PuntoInteres::all()->skip(8)->take(4)->random()->id,
+
+            ]);
+            
+        }
     }
 }

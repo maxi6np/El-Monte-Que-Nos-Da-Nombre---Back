@@ -32,5 +32,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('trabajos')->delete();
         $this->call(TrabajosSeeder::class);
+
+        DB::table('rutas')->delete();
+        $this->call(RutasSeeder::class);
     }
 }
