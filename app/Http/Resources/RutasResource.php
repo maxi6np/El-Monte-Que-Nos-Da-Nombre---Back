@@ -15,6 +15,7 @@ class RutasResource extends JsonResource
     public function toArray($request)
     {
         return[
+            'id_ruta' => $this->id_ruta, 
             'nombre' => $this->nombre,
             'duracion' => $this->duracion,
             'dificultad' => $this->dificultad,
