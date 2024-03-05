@@ -15,6 +15,7 @@ class PuntosResource extends JsonResource
     public function toArray($request)
     {
         return[
+            'id_punto_interes' => $this->id_punto_interes,
             'latitud'=> $this->latitud,
             'longitud'=>$this->longitud,
             'nombre'=>$this->nombre,
