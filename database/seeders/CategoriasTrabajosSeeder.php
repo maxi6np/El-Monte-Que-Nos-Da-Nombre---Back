@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\CategoriaTrabajo;
+use App\Models\Trabajo;
 
 class CategoriasTrabajosSeeder extends Seeder
 {
@@ -58,48 +60,61 @@ class CategoriasTrabajosSeeder extends Seeder
         ],
         [
             'nombre' => '4º ESO',
-            'descripcion' => 'Biología',],
+            'descripcion' => 'Biología',
+        ],
         [
             'nombre' => '4º ESO',
-            'descripcion' => 'Lengua',],
+            'descripcion' => 'Lengua',
+        ],
         [
             'nombre' => '4º ESO',
-            'descripcion' => 'Geografía e Historia',],
+            'descripcion' => 'Geografía e Historia',
+        ],
         [
             'nombre' => '4º ESO',
-            'descripcion' => 'Francés',],
+            'descripcion' => 'Francés',
+        ],
         [
             'nombre' => '1º BACH',
-            'descripcion' => 'Física y Química',],
+            'descripcion' => 'Física y Química',
+        ],
         [
             'nombre' => '1º BACH',
-            'descripcion' => 'Biología',],
+            'descripcion' => 'Biología',
+        ],
         [
             'nombre' => '1º BACH',
-            'descripcion' => '',],
+            'descripcion' => '',
+        ],
         [
             'nombre' => '1º BACH',
-            'descripcion' => 'Cultura clásica',],
+            'descripcion' => 'Cultura clásica',
+        ],
         [
             'nombre' => '2º BACH',
-            'descripcion' => 'Biología',],
+            'descripcion' => 'Biología',
+        ],
         [
             'nombre' => '2º BACH',
-            'descripcion' => 'Matemáticas',],
+            'descripcion' => 'Matemáticas',
+        ],
         [
             'nombre' => '2º BACH',
-            'descripcion' => 'Lengua',],
+            'descripcion' => 'Lengua',
+        ],
         [
             'nombre' => '2º BACH',
-            'descripcion' => 'Geografía e Historia',],];
-    
-    
+            'descripcion' => 'Geografía e Historia',
+        ],
+    ];
+
+
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run():void
+    public function run(): void
     {
         foreach ($this->categoriasTrabajos as $categoria) {
             $catTrabajo = new CategoriaTrabajo();
@@ -109,7 +124,7 @@ class CategoriasTrabajosSeeder extends Seeder
             $catTrabajo->trabajos()->attach([
                 Trabajo::all()->skip(0)->take(5)->random()->id_trabajo,
             ]);
+        }
+        $this->command->info('Tabla de categorías trabajos inicializada con datos');
     }
-    $this->command->info('Tabla de categorías trabajos inicializada con datos');
-}
 }

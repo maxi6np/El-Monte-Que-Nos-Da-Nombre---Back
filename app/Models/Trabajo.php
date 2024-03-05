@@ -27,7 +27,7 @@ class Trabajo extends Model
     }
 
 
-    public function categorias()
+    public function categoriasTrabajos()
     {
         return $this->belongsToMany(CategoriaTrabajo::class, 'clasifica_trabajos', 'id_trabajo', 'id_categoriaT');
     }

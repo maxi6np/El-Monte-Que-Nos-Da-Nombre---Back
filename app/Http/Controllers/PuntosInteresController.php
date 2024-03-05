@@ -22,7 +22,7 @@ class PuntosInteresController extends Controller
     }
 
     public function getPuntosConTrabajos(){
-        $relaciones = ['trabajos', 'categorias'];
+        $relaciones = ['trabajos.categoriasTrabajos'];
         $puntos = PuntoInteres::with($relaciones)->get();
         return new PuntosCollection($puntos);
     }

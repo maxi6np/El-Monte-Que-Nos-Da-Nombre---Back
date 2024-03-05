@@ -24,8 +24,13 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/crearToken', [ProfileController::class, 'crearToken'])->name('profile.crearToken');
+
 Route::get('/mapa-puntos', [PuntosInteresController::class, 'getPuntos'])->name('getPuntos');
 
 Route::post('/get-rutas', [RutasController::class, 'getRutas'])->name('getRutas');
+
 Route::get('/puntos-trabajos', [PuntosInteresController::class, 'getPuntosConTrabajos'])->name('getPuntosConTrabajos');
+
 Route::get('/trabajos', [PuntosInteresController::class, 'getTrabajos'])->name('getTabajos');
+
+Route::get('/planificar-ruta', [RutasController::class, 'storeRuta'])->name('storeRuta');

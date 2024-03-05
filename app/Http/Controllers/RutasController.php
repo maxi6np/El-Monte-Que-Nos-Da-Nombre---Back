@@ -11,12 +11,13 @@ use App\Http\Resources\RutasResource;
 use App\Http\Resources\RutasCollection;
 use App\Models\CategoriaP;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\Validator;
 
 class RutasController extends Controller
 {
     public function getRutas(Request $request)
     {
-        $relaciones = ['puntos_interes.categorias'];
+        $relaciones = ['puntos_interes.categoriasPuntos'];
         $categorias = new CategoriasPCollection(CategoriaP::all());
         if ($request->filled('token')) {
             $userID = PersonalAccessToken::findToken($request->token)->tokenable_id;
@@ -29,12 +30,12 @@ class RutasController extends Controller
                 array_push($RutasResources, $rutaResource);
             }
             $RutaCollection = new RutasCollection($RutasResources);
-            return $RutaCollection->additional(['categorias' => $categorias]) ;
+            return $RutaCollection->additional(['categoriasPuntos' => $categorias]) ;
 
         } else {
             $rutas = Ruta::with($relaciones)->where('publica', true);
             $RutaCollection = new RutasCollection($rutas->get());
-            return $RutaCollection->additional(['categorias' => $categorias]) ;
+            return $RutaCollection->additional(['categoriasPuntos' => $categorias]) ;
         }
 
 
@@ -51,5 +52,37 @@ class RutasController extends Controller
     }
         $porcentaje = (sizeof($visitados) / sizeof($ruta->puntos_interes)) * 100;
         return round($porcentaje);
+    }
+
+    public function storeRuta(Request $request){
+        try {
+            $validator = Validator::make($request->all(), [
+                'nombre' => ['required', 'string', 'max:255'],
+                'descripcion' => ['required', 'string'],
+                'puntos' => ['required', 'array', 'min:1'],
+                'puntos.*' => ['required'],
+                'imagen' => ['nullable', 'file']
+            ]);
+
+            $nuevaRuta = Ruta::create([
+                'nombre' => $request->nombre,
+                'descripcion' => $request->descripcion,
+                'puntos' => $request->puntos,
+                'imagen' => $request->imagen
+            ]);
+
+            return response()->json(['message' => 'Ruta creada correctamente', $nuevaRuta], 201);
+
+            if ($validator->fails()) {
+                return response()->json(['message' => 'La validación ha fallado', 'errors' => $validator->errors()], 400);
+            }
+        } catch (\Illuminate\Database\QueryException $exception) {
+            $errorCode = $exception->errorInfo[1];
+            if ($errorCode === 1062) { // Código de error para violación de restricción única
+                return response()->json(['message' => 'Este usuario ya existe'], 422);
+            }
+            // Manejar otros errores de base de datos si es necesario
+            return response()->json(['message' => 'Error al procesar la solicitud'], 500);
+        }
     }
 }

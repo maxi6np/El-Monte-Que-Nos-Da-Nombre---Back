@@ -38,5 +38,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('categorias_puntos')->delete();
         $this->call(Categoria_puntos_seeder::class);
+
+        DB::table('categorias_trabajos')->delete();
+        $this->call(CategoriasTrabajosSeeder::class);
     }
 }

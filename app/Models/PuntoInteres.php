@@ -24,7 +24,6 @@ class PuntoInteres extends Model
         return $this->hasMany(Trabajo::class, 'id_punto_interes');
     }
 
-
     public function rutas(){
         return $this->belongsToMany(Ruta::class, 'formado', 'id_punto_interes', 'id_ruta');
     }
@@ -33,7 +32,7 @@ class PuntoInteres extends Model
         return $this->belongsToMany(User::class, 'visita', 'id_punto_interes', 'id_usuario')->as('visita')->withPivot('completado');
     }
 
-    public function categorias(){
+    public function categoriasPuntos(){
         return $this->belongsToMany(CategoriaP::class, 'clasifica_puntos', 'id_punto_interes', 'id_categoriaP');
     }
 }

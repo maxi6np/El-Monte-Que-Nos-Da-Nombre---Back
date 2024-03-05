@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Resources;
-use Illuminate\Http\Request;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TrabajosResource extends JsonResource
+class CategoriaTResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,14 +16,7 @@ class TrabajosResource extends JsonResource
     {
         return [
             'nombre' => $this->nombre,
-            'texto' => $this->texto,
-            'URL' => $this->URL,
-            'tipo' => $this->tipo,
-            'idioma' => $this->idioma,
-            'movil' => $this->movil,
-            'categoriasTrabajos' => CategoriaTResource::collection($this->whenLoaded('categoriasTrabajos'))
-
-
+            'descripcion' => $this->descripcion
         ];
     }
 }
