@@ -21,8 +21,14 @@ class Trabajo extends Model
     ];
     public $timestamps = false;
 
-    public function punto(){
+    public function punto()
+    {
         return $this->BelongsTo(PuntoInteres::class);
     }
 
+
+    public function categorias()
+    {
+        return $this->belongsToMany(CategoriaTrabajo::class, 'clasifica_trabajos', 'id_trabajo', 'id_categoriaT');
+    }
 }
