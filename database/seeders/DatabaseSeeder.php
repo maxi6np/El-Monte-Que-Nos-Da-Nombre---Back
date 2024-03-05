@@ -35,5 +35,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('rutas')->delete();
         $this->call(RutasSeeder::class);
+
+        DB::table('categorias_puntos')->delete();
+        $this->call(Categoria_puntos_seeder::class);
     }
 }
