@@ -20,7 +20,9 @@ class PuntosResource extends JsonResource
             'nombre'=>$this->nombre,
             'descripcion'=>$this->descripcion,
             'imagen' => $this->imagen,
-            'trabajos' => TrabajosResource::collection($this->whenLoaded('trabajos'))
+            'trabajos' => TrabajosResource::collection($this->whenLoaded('trabajos')),
+            'categorias' => CategoriasPResource::collection($this->whenLoaded('categorias'))
+            
         ];
     }
 }

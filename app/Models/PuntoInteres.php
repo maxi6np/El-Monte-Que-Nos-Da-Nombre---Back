@@ -11,6 +11,7 @@ class PuntoInteres extends Model
     protected $table = 'puntos_interes';
     protected $primaryKey = 'id_punto_interes';
     protected $fillable = [
+        'id_punto_interes',
         'latitud',
         'longitud',
         'nombre',
@@ -30,5 +31,9 @@ class PuntoInteres extends Model
 
     public function visitados(){
         return $this->belongsToMany(User::class, 'visita', 'id_punto_interes', 'id_usuario')->as('visita')->withPivot('completado');
+    }
+
+    public function categorias(){
+        return $this->belongsToMany(CategoriaP::class, 'clasifica_puntos', 'id_punto_interes', 'id_categoriaP');
     }
 }
