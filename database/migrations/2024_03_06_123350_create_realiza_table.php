@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('realiza', function (Blueprint $table) {
             $table->bigInteger('id_ruta');
             $table->bigInteger('id_usuario')->index('fk_realiza_id_usuario');
+            $table->boolean('completado')->nullable();
 
             $table->primary(['id_ruta', 'id_usuario']);
         });
