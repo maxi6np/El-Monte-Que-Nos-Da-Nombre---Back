@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\RutasResource;
 use App\Http\Resources\RutasCollection;
 use App\Models\CategoriaP;
+use Carbon\Carbon;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 
@@ -71,6 +72,9 @@ class RutasController extends Controller
             $nuevaRuta = Ruta::create([
                 'nombre' => $request->nombre,
                 'descripcion' => $request->descripcion,
+                'fecha_creacion' => Carbon::now(),
+                'duracion' => 4,
+                'dificultad' => 'media',  
                 'imagen_principal' => $request->imagen_principal
             ]);
 
