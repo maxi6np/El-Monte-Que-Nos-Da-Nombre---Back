@@ -33,4 +33,4 @@ Route::get('/puntos-trabajos', [PuntosInteresController::class, 'getPuntosConTra
 
 Route::get('/trabajos', [PuntosInteresController::class, 'getTrabajos'])->name('getTabajos');
 
-Route::get('/planificar-ruta', [RutasController::class, 'storeRuta'])->name('storeRuta');
+Route::post('/planificar-ruta', [RutasController::class, 'storeRuta'])->name('storeRuta');
