@@ -71,9 +71,8 @@ class RutasSeeder extends Seeder
 
             ]);
 
-            $rutanueva->Realiza()->attach([
+            $rutanueva->realiza()->attach([
                 User::all()->skip(0)->take(3)->random()->id_usuario,
-                User::all()->skip(1)->take(2)->random()->id_usuario,
 
             ]);
         }

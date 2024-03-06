@@ -43,7 +43,7 @@ class RutasController extends Controller
     public function getPorcentaje($userID, Ruta $ruta){
         $visitados = [];
         $user = User::find($userID);
-        if(in_array($user, $ruta->Realiza)){
+        if($ruta->realiza->contains($user)){
         foreach($ruta->puntos_interes as $punto_interes){
             foreach($punto_interes->visitados as $visita){
                 if($visita->id_usuario == $userID && $visita->visita->completado == true){
