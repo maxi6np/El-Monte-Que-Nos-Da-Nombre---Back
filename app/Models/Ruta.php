@@ -31,6 +31,10 @@ class Ruta extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function Realiza(){
+        return $this->belongsToMany(User::class, 'realiza', 'id_ruta', 'id_usuario');
+    }
+
 
 
 

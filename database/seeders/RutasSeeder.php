@@ -70,6 +70,12 @@ class RutasSeeder extends Seeder
                 PuntoInteres::all()->skip(16)->take(4)->random()->id_punto_interes,
 
             ]);
+
+            $rutanueva->Realiza()->attach([
+                User::all()->skip(0)->take(3)->random()->id_usuario,
+                User::all()->skip(1)->take(2)->random()->id_usuario,
+
+            ]);
         }
     }
 }
