@@ -61,15 +61,18 @@ class RutasController extends Controller
                 'descripcion' => ['required', 'string'],
                 'puntos' => ['required', 'array', 'min:1'],
                 'puntos.*' => ['required'],
-                'imagen' => ['nullable', 'file']
+                'imagen_`principal' => ['nullable', 'file']
             ]);
 
             $nuevaRuta = Ruta::create([
                 'nombre' => $request->nombre,
                 'descripcion' => $request->descripcion,
-                'puntos' => $request->puntos,
-                'imagen' => $request->imagen
+                'imagen_principal' => $request->imagen_principal
             ]);
+
+            $nuevaRuta->puntos_interes()->attach(
+                $request->puntos
+            );
 
             return response()->json(['message' => 'Ruta creada correctamente', $nuevaRuta], 201);
 
@@ -77,11 +80,6 @@ class RutasController extends Controller
                 return response()->json(['message' => 'La validación ha fallado', 'errors' => $validator->errors()], 400);
             }
         } catch (\Illuminate\Database\QueryException $exception) {
-            $errorCode = $exception->errorInfo[1];
-            if ($errorCode === 1062) { // Código de error para violación de restricción única
-                return response()->json(['message' => 'Este usuario ya existe'], 422);
-            }
-            // Manejar otros errores de base de datos si es necesario
             return response()->json(['message' => 'Error al procesar la solicitud'], 500);
         }
     }
