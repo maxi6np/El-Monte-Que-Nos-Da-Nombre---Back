@@ -43,6 +43,8 @@ class RutasController extends Controller
     }
     public function getPorcentaje($userID, Ruta $ruta){
         $visitados = [];
+        $user = User::find($userID);
+        if(in_array($user, $ruta->Realiza)){
         foreach($ruta->puntos_interes as $punto_interes){
             foreach($punto_interes->visitados as $visita){
                 if($visita->id_usuario == $userID && $visita->visita->completado == true){
@@ -52,7 +54,9 @@ class RutasController extends Controller
         }
     }
         $porcentaje = (sizeof($visitados) / sizeof($ruta->puntos_interes)) * 100;
-        return round($porcentaje);
+        return round($porcentaje);}
+        return -1;
+
     }
 
     public function storeRuta(Request $request){
