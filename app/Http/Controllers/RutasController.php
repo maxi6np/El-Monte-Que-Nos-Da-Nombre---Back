@@ -24,42 +24,40 @@ class RutasController extends Controller
             $userID = PersonalAccessToken::findToken($request->token)->tokenable_id;
             $rutas = Ruta::with($relaciones)->where('publica', '=', true)->orWhere('id_usuario', '=', $userID)->get();
             $RutasResources = [];
-            foreach($rutas as $ruta){
+            foreach ($rutas as $ruta) {
                 $rutaResource = new RutasResource($ruta);
-               $rutaResource->porcentaje($this->getPorcentaje($userID, $ruta));
+                $rutaResource->porcentaje($this->getPorcentaje($userID, $ruta));
 
                 array_push($RutasResources, $rutaResource);
             }
             $RutaCollection = new RutasCollection($RutasResources);
-            return $RutaCollection->additional(['categoriasPuntos' => $categorias]) ;
-
+            return $RutaCollection->additional(['categoriasPuntos' => $categorias]);
         } else {
             $rutas = Ruta::with($relaciones)->where('publica', true);
             $RutaCollection = new RutasCollection($rutas->get());
-            return $RutaCollection->additional(['categoriasPuntos' => $categorias]) ;
+            return $RutaCollection->additional(['categoriasPuntos' => $categorias]);
         }
-
-
     }
-    public function getPorcentaje($userID, Ruta $ruta){
+    public function getPorcentaje($userID, Ruta $ruta)
+    {
         $visitados = [];
         $user = User::find($userID);
-        if($ruta->realiza->contains($user)){
-        foreach($ruta->puntos_interes as $punto_interes){
-            foreach($punto_interes->visitados as $visita){
-                if($visita->id_usuario == $userID && $visita->visita->completado == true){
-                    array_push($visitados, $visita);
+        if ($ruta->realiza->contains($user)) {
+            foreach ($ruta->puntos_interes as $punto_interes) {
+                foreach ($punto_interes->visitados as $visita) {
+                    if ($visita->id_usuario == $userID && $visita->visita->completado == true) {
+                        array_push($visitados, $visita);
+                    }
                 }
-
+            }
+            $porcentaje = (sizeof($visitados) / sizeof($ruta->puntos_interes)) * 100;
+            return round($porcentaje);
         }
-    }
-        $porcentaje = (sizeof($visitados) / sizeof($ruta->puntos_interes)) * 100;
-        return round($porcentaje);}
         return -1;
-
     }
 
-    public function storeRuta(Request $request){
+    public function storeRuta(Request $request)
+    {
         try {
             $validator = Validator::make($request->all(), [
                 'nombre' => ['required', 'string', 'max:255'],
@@ -69,13 +67,25 @@ class RutasController extends Controller
                 'imagen_`principal' => ['nullable', 'file']
             ]);
 
+            // si no se ha escogido imagen, establecer la imagen del primer punto de interés
+            $imagen = $request->imagen_principal;
+            if (!$imagen) {
+                $primerPuntoInteresId = $request->puntos[0];
+                $primerPuntoInteres = PuntoInteres::find($primerPuntoInteresId);
+                if ($primerPuntoInteres) {
+                    $imagen = $primerPuntoInteres->imagen;
+                } else {
+                    $imagen = 'imagen_por_defecto.jpg';
+                }
+            }
+
             $nuevaRuta = Ruta::create([
                 'nombre' => $request->nombre,
                 'descripcion' => $request->descripcion,
                 'fecha_creacion' => Carbon::now(),
                 'duracion' => 4,
-                'dificultad' => 'media',  
-                'imagen_principal' => $request->imagen_principal,
+                'dificultad' => 'media',
+                'imagen_principal' => $imagen,
                 'publica' => $request->publica,
                 'id_usuario' =>  PersonalAccessToken::findToken($request->token)->tokenable_id
             ]);
