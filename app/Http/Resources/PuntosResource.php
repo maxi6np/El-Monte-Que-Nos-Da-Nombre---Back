@@ -12,6 +12,11 @@ class PuntosResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+    protected $visitado = false;
+    public function setVisitado($valor){
+        $this->visitado = $valor;
+        return $this;
+    }
     public function toArray($request)
     {
         return[
@@ -21,6 +26,7 @@ class PuntosResource extends JsonResource
             'nombre'=>$this->nombre,
             'descripcion'=>$this->descripcion,
             'imagen' => $this->imagen,
+            'visitado' => $this->visitado,
             'trabajos' => TrabajosResource::collection($this->whenLoaded('trabajos')),
             'categoriasPuntos' => CategoriasPResource::collection($this->whenLoaded('categoriasPuntos'))
 

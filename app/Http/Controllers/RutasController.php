@@ -26,8 +26,10 @@ class RutasController extends Controller
             $RutasResources = [];
             foreach($rutas as $ruta){
                 $rutaResource = new RutasResource($ruta);
+                
                $rutaResource->porcentaje($this->getPorcentaje($userID, $ruta));
-
+               $rutaResource->cargarVisitados($ruta, $userID);
+               
                 array_push($RutasResources, $rutaResource);
             }
             $RutaCollection = new RutasCollection($RutasResources);
