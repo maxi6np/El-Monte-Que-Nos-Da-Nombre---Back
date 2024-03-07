@@ -75,7 +75,8 @@ class RutasController extends Controller
                 'fecha_creacion' => Carbon::now(),
                 'duracion' => 4,
                 'dificultad' => 'media',  
-                'imagen_principal' => $request->imagen_principal
+                'imagen_principal' => $request->imagen_principal,
+                'publica' => $request->publica
             ]);
 
             $nuevaRuta->puntos_interes()->attach(
@@ -88,7 +89,7 @@ class RutasController extends Controller
                 return response()->json(['message' => 'La validación ha fallado', 'errors' => $validator->errors()], 400);
             }
         } catch (\Illuminate\Database\QueryException $exception) {
-            return response()->json(['message' => 'Error al procesar la solicitud'], 500);
+            return response()->json(['message' => 'Error al procesar la solicitud', $exception->getMessage()], 500);
         }
     }
 }
