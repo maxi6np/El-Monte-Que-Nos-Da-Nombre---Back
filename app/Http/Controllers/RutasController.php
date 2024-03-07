@@ -75,7 +75,8 @@ class RutasController extends Controller
                 'fecha_creacion' => Carbon::now(),
                 'duracion' => 4,
                 'dificultad' => 'media',  
-                'imagen_principal' => $request->imagen_principal
+                'imagen_principal' => $request->imagen_principal,
+                'id_usuario' =>  PersonalAccessToken::findToken($request->token)->tokenable_id
             ]);
 
             $nuevaRuta->puntos_interes()->attach(
