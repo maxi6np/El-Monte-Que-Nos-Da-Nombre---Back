@@ -15,12 +15,13 @@ class RutasResource extends JsonResource
      */
 
      protected $porcentaje;
-     protected $puntos_interes;
+     protected $puntos_interes= 'vacio';
         public function porcentaje($valor){
             $this->porcentaje = $valor;
             return $this;
         }
 
+      
         public function cargarVisitados(Ruta $ruta, $userID = 0){
             $puntosVisitados = [];
             foreach($ruta->puntos_interes as $punto_interes){
@@ -48,7 +49,7 @@ class RutasResource extends JsonResource
             'publica' => $this->publica,
             'id_usuario'=> $this-> id_usuario,
             'porcentaje'=> $this->porcentaje,
-            'puntos_interes' => $this->relationLoaded('puntos_interes') ? PuntosResource::collection(($this->puntos_interes)) : null
+            'puntos_interes' => $this->puntos_interes == 'vacio' ?  PuntosResource::collection($this->whenLoaded('puntos_interes')) : PuntosResource::collection(($this->puntos_interes))
         ];
     }
 }
