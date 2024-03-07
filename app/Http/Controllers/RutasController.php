@@ -76,7 +76,8 @@ class RutasController extends Controller
                 'duracion' => 4,
                 'dificultad' => 'media',  
                 'imagen_principal' => $request->imagen_principal,
-                'publica' => $request->publica
+                'publica' => $request->publica,
+                'id_usuario' =>  PersonalAccessToken::findToken($request->token)->tokenable_id
             ]);
 
             $nuevaRuta->puntos_interes()->attach(
