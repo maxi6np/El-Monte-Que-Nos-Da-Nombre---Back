@@ -84,7 +84,7 @@ class CategoriasTrabajosSeeder extends Seeder
         ],
         [
             'nombre' => '1º BACH',
-            'descripcion' => '',
+            'descripcion' => 'Inglés',
         ],
         [
             'nombre' => '1º BACH',
