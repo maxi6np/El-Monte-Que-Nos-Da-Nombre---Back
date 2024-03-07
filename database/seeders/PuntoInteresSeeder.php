@@ -85,21 +85,21 @@ class PuntoInteresSeeder extends Seeder
             'longitud' => '-5.882923362939819',
             'nombre' => 'Mina Pastora y Mina Gorgota',
             'descripcion' => 'Antiguas minas de extracción de carbón ubicadas en el Monte Naranco.',
-            'imagen' => ''
+            'imagen' => 'https://images.mnstatic.com/4e/9d/4e9d74f30a605c518b5908c6d3c06f74.jpg?quality=75&format=pjpg&fit=crop&width=980&height=880&aspect_ratio=980%3A880'
         ],
         [
             'latitud' => '43.400566',
             'longitud' => '-5.838617',
             'nombre' => 'Los caleros del Naranco',
             'descripcion' => 'Antiguos hornos de cal ubicados en el Monte Naranco.',
-            'imagen' => ''
+            'imagen' => 'https://www.descubreelnaranco.com/img/muslera_frontal.jpg'
         ],
         [
             'latitud' => '43.36821286087735',
             'longitud' => '-5.860387202855101',
             'nombre' => 'Calle Cuatro Ases de la canción asturiana',
             'descripcion' => 'Calle Cuatro Ases de la canción asturiana',
-            'imagen' => ''
+            'imagen' => 'https://cloud10.todocoleccion.online/discos-vinilo/tc/2014/10/08/17/45610600.jpg'
 
         ],
         [
@@ -107,7 +107,7 @@ class PuntoInteresSeeder extends Seeder
             'longitud' => '-5.857244862374825',
             'nombre' => 'Calle Naranjo de Bulnes',
             'descripcion' => 'Calle Naranjo de Bulnes',
-            'imagen' => ''
+            'imagen' => 'https://vanvango.es/wp-content/uploads/2023/08/visitar-el-naranjo-de-bulnes-en-autocaravana-2023-08-17-visitar-el-naranjo-de-bulnes-en-autocaravana-1.jpg'
 
         ],
         [
@@ -115,7 +115,7 @@ class PuntoInteresSeeder extends Seeder
             'longitud' => '-5.856973747032662',
             'nombre' => 'Calle Monte Gamonal',
             'descripcion' => 'Calle Monte Gamonal',
-            'imagen' => ''
+            'imagen' => 'https://www.montesdeasturias.com/techos_as/gamonal_/Gamonal.jpg'
 
         ],
         [
@@ -123,7 +123,7 @@ class PuntoInteresSeeder extends Seeder
             'longitud' => '-5.854877147032674',
             'nombre' => 'Calle Monte Auseva',
             'descripcion' => 'Calle Monte Auseva',
-            'imagen' => ''
+            'imagen' => 'https://www.deviajeporasturias.com/wp-content/uploads/4747g-3.jpg'
 
         ],
         [
@@ -131,7 +131,7 @@ class PuntoInteresSeeder extends Seeder
             'longitud' => '-5.8567602605260785',
             'nombre' => 'Calle Montes del Sueve',
             'descripcion' => 'Calle Montes del Sueve',
-            'imagen' => ''
+            'imagen' => 'https://www.turismoasturias.es/documents/39908/d279f5de-d34e-2a57-e9f8-64cfb45b05c7?t=1674176635279'
 
         ],
         [
@@ -139,7 +139,7 @@ class PuntoInteresSeeder extends Seeder
             'longitud' => '-5.854304374019433',
             'nombre' => 'Calle Torrecerredo',
             'descripcion' => 'Calle Torrecerredo',
-            'imagen' => ''
+            'imagen' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Torrecerredo.jpg/640px-Torrecerredo.jpg'
 
         ],
         [
@@ -147,7 +147,7 @@ class PuntoInteresSeeder extends Seeder
             'longitud' => '-5.8600254740195155',
             'nombre' => 'Calle Peña Ubiña',
             'descripcion' => 'Calle Peña Ubiña',
-            'imagen' => ''
+            'imagen' => 'https://s2.ppllstatics.com/elcomercio/www/multimedia/202206/09/media/06-ubina.jpg'
 
         ],
         [
@@ -155,7 +155,7 @@ class PuntoInteresSeeder extends Seeder
             'longitud' => '-5.8587129893617345',
             'nombre' => 'Calle Peña Santa de Enol',
             'descripcion' => 'Calle Peña Santa de Enol',
-            'imagen' => ''
+            'imagen' => 'https://s1.ppllstatics.com/elcomercio/www/multimedia/2023/09/22/01-pena-santa-castilla.jpg'
 
         ]
     ];
