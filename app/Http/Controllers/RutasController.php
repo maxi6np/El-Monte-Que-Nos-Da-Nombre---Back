@@ -11,52 +11,35 @@ use App\Http\Resources\RutasResource;
 use App\Http\Resources\RutasCollection;
 use App\Models\CategoriaP;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 
 class RutasController extends Controller
 {
+    private $userID;
     public function getRutas(Request $request)
     {
-        $relaciones = ['puntos_interes.categoriasPuntos'];
+        
         $categorias = new CategoriasPCollection(CategoriaP::all());
         if ($request->filled('token')) {
-            $userID = PersonalAccessToken::findToken($request->token)->tokenable_id;
-            $rutas = Ruta::with($relaciones)->where('publica', '=', true)->orWhere('id_usuario', '=', $userID)->get();
-            $RutasResources = [];
-            foreach ($rutas as $ruta) {
-                $rutaResource = new RutasResource($ruta);
-                
-               $rutaResource->porcentaje($this->getPorcentaje($userID, $ruta));
-               $rutaResource->cargarVisitados($ruta, $userID);
-               
-                array_push($RutasResources, $rutaResource);
-            }
-            $RutaCollection = new RutasCollection($RutasResources);
+            $this->userID = PersonalAccessToken::findToken($request->token)->tokenable_id;    
+           $relaciones = ['puntos_interes.categoriasPuntos', 'realiza'=> function($q){
+                $q->where('realiza.id_usuario', '=', $this->userID);
+            }, 'puntos_interes.visitados'=>function($q){
+                $q->where('visita.id_usuario', '=', $this->userID)->where('visita.completado', '=', true);
+            } ];
+            $rutas = Ruta::with($relaciones)->where('publica', '=', true)->orWhere('id_usuario', '=', $this->userID )->get();
+            $RutaCollection = new RutasCollection($rutas);
             return $RutaCollection->additional(['categoriasPuntos' => $categorias]);
         } else {
+            $relaciones = ['puntos_interes.categoriasPuntos'];
             $rutas = Ruta::with($relaciones)->where('publica', true);
             $RutaCollection = new RutasCollection($rutas->get());
             return $RutaCollection->additional(['categoriasPuntos' => $categorias]);
         }
     }
-    public function getPorcentaje($userID, Ruta $ruta)
-    {
-        $visitados = [];
-        $user = User::find($userID);
-        if ($ruta->realiza->contains($user)) {
-            foreach ($ruta->puntos_interes as $punto_interes) {
-                foreach ($punto_interes->visitados as $visita) {
-                    if ($visita->id_usuario == $userID && $visita->visita->completado == true) {
-                        array_push($visitados, $visita);
-                    }
-                }
-            }
-            $porcentaje = (sizeof($visitados) / sizeof($ruta->puntos_interes)) * 100;
-            return round($porcentaje);
-        }
-        return -1;
-    }
+   
 
     public function storeRuta(Request $request)
     {

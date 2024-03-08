@@ -57,7 +57,7 @@ class User extends Authenticatable
     }
 
     public function realiza(){
-        return $this->belongsToMany(Ruta::class, 'visita', 'id_usuario', 'id_ruta');
+        return $this->belongsToMany(Ruta::class, 'realiza', 'id_usuario', 'id_ruta');
     }
 
 }

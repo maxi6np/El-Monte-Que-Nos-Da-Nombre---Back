@@ -16,45 +16,40 @@ class PuntosInteresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $userID;
 
+    public function getPuntos(Request $request)
+    {
 
-    public function getPuntos(Request $request){
-        $puntosInteres = PuntoInteres::all();
-        if ($request->filled('token')){
-            $userID = PersonalAccessToken::findToken($request->token)->tokenable_id;
-            $puntosConVisita = [];
-         foreach($puntosInteres as $punto){
-            $puntoResource = new PuntosResource($punto);
-            $i = 0;
-            $check = 0;
-            while($i < sizeof($punto->visitados) && $check == 0){
-                if ($punto->visitados[$i]->id_usuario == $userID && $punto->visitados[$i]->visita->completado == true){
-                    $puntoResource->setVisitado(true);
-                    $check = 1;
-                }
-                $i++;
-            }
-            array_push($puntosConVisita, $puntoResource);
+        if ($request->filled('token')) {
+            $this->userID = PersonalAccessToken::findToken($request->token)->tokenable_id;
+            $relaciones = ['visitados'=> function ($q) {
+                $q->where('visita.id_usuario', '=', $this->userID)->where('visita.completado', '=', true);
+            }];
+            $puntos = PuntoInteres::with($relaciones)->get();
+            return new PuntosCollection($puntos);
+        } else {
+            $relaciones = ['visitados'];
+            $puntos = PuntoInteres::with($relaciones)->get();
+            return new PuntosCollection($puntos);
         }
-        return new PuntosCollection($puntosConVisita);   
-    }
-        return new PuntosCollection($puntosInteres);
     }
 
-   
-    public function getPuntosConTrabajos(Request $request){
-        
+
+    public function getPuntosConTrabajos(Request $request)
+    {
+
         $relaciones = ['trabajos.categoriasTrabajos'];
         $puntosInteres = PuntoInteres::with($relaciones)->get();
-        if ($request->filled('token')){
+        if ($request->filled('token')) {
             $userID = PersonalAccessToken::findToken($request->token)->tokenable_id;
             $puntosConVisita = [];
-            foreach($puntosInteres as $punto){
+            foreach ($puntosInteres as $punto) {
                 $puntoResource = new PuntosResource($punto);
                 $i = 0;
                 $check = 0;
-                while($i < sizeof($punto->visitados) && $check == 0){
-                    if ($punto->visitados[$i]->id_usuario == $userID && $punto->visitados[$i]->visita->completado == true){
+                while ($i < sizeof($punto->visitados) && $check == 0) {
+                    if ($punto->visitados[$i]->id_usuario == $userID && $punto->visitados[$i]->visita->completado == true) {
                         $puntoResource->setVisitado(true);
                         $check = 1;
                     }
@@ -62,7 +57,7 @@ class PuntosInteresController extends Controller
                 }
                 array_push($puntosConVisita, $puntoResource);
             }
-            return new PuntosCollection($puntosConVisita);   
+            return new PuntosCollection($puntosConVisita);
         }
         return new PuntosCollection($puntosInteres);
     }
