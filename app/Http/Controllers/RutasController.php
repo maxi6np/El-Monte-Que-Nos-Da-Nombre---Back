@@ -76,8 +76,6 @@ class RutasController extends Controller
                 $primerPuntoInteres = PuntoInteres::find($primerPuntoInteresId);
                 if ($primerPuntoInteres) {
                     $imagen = $primerPuntoInteres->imagen;
-                } else {
-                    $imagen = 'imagen_por_defecto.jpg';
                 }
             }
 
