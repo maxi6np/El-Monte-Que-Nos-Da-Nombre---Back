@@ -20,10 +20,10 @@ class RutasController extends Controller
     private $userID;
     public function getRutas(Request $request)
     {
-        
+
         $categorias = new CategoriasPCollection(CategoriaP::all());
         if ($request->filled('token')) {
-            $this->userID = PersonalAccessToken::findToken($request->token)->tokenable_id;    
+            $this->userID = PersonalAccessToken::findToken($request->token)->tokenable_id;
            $relaciones = ['puntos_interes.categoriasPuntos', 'realiza'=> function($q){
                 $q->where('realiza.id_usuario', '=', $this->userID);
             }, 'puntos_interes.visitados'=>function($q){
@@ -39,7 +39,7 @@ class RutasController extends Controller
             return $RutaCollection->additional(['categoriasPuntos' => $categorias]);
         }
     }
-   
+
 
     public function storeRuta(Request $request)
     {
@@ -85,5 +85,11 @@ class RutasController extends Controller
         } catch (\Illuminate\Database\QueryException $exception) {
             return response()->json(['message' => 'Error al procesar la solicitud', $exception->getMessage()], 500);
         }
+    }
+
+    public function getRuta(Request $request){
+        $ruta = $request->input('ruta');
+        return response()->json(['ruta' => $ruta]);
+
     }
 }
