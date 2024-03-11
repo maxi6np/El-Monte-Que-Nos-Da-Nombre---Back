@@ -24,12 +24,12 @@ class RutasController extends Controller
         $categorias = new CategoriasPCollection(CategoriaP::all());
         if ($request->filled('token')) {
             $this->userID = PersonalAccessToken::findToken($request->token)->tokenable_id;
-           $relaciones = ['puntos_interes.categoriasPuntos', 'realiza'=> function($q){
+            $relaciones = ['puntos_interes.categoriasPuntos', 'realiza' => function ($q) {
                 $q->where('realiza.id_usuario', '=', $this->userID);
-            }, 'puntos_interes.visitados'=>function($q){
+            }, 'puntos_interes.visitados' => function ($q) {
                 $q->where('visita.id_usuario', '=', $this->userID)->where('visita.completado', '=', true);
-            } ];
-            $rutas = Ruta::with($relaciones)->where('publica', '=', true)->orWhere('id_usuario', '=', $this->userID )->get();
+            }];
+            $rutas = Ruta::with($relaciones)->where('publica', '=', true)->orWhere('id_usuario', '=', $this->userID)->get();
             $RutaCollection = new RutasCollection($rutas);
             return $RutaCollection->additional(['categoriasPuntos' => $categorias]);
         } else {
@@ -87,9 +87,23 @@ class RutasController extends Controller
         }
     }
 
-    public function getRuta(Request $request){
+    public function getRuta(Request $request)
+    {
         $ruta = $request->input('ruta');
         return response()->json(['ruta' => $ruta]);
-
     }
+
+    public function deleteRuta(Request $request)
+    {
+        $id_ruta = $request->input('id_ruta');
+        $ruta = Ruta::find($id_ruta);
+    
+        if ($ruta) {
+            $ruta->delete();
+            return response()->json(['message' => 'Ruta eliminada correctamente']);
+        } else {
+            return response()->json(['message' => 'No se ha podido encontrar la ruta'], 404);
+        }
+    }
+    
 }
