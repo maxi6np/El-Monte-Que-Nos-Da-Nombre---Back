@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PuntosInteresController;
 use App\Http\Controllers\RutasController;
+use App\Http\Controllers\ArchivoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,5 @@ Route::post('/encontrar-ruta/{id}', [RutasController::class, 'getRuta'])->name('
 Route::put('/editar-ruta/{id}', [RutasController::class, 'updateRuta'])->name('updateRuta');
 
 Route::delete('/borrar-ruta', [RutasController::class, 'deleteRuta'])->name('deleteRuta');
+
+Route::post('/subir-imagen', [ArchivoController::class, 'subirImagen'])->name('subirImagen');
