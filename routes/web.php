@@ -38,3 +38,5 @@ Route::post('/planificar-ruta', [RutasController::class, 'storeRuta'])->name('st
 Route::post('/encontrar-ruta/{id}', [RutasController::class, 'getRuta'])->name('getRuta');
 
 Route::put('/editar-ruta/{id}', [RutasController::class, 'updateRuta'])->name('updateRuta');
+
+Route::delete('/borrar-ruta', [RutasController::class, 'deleteRuta'])->name('deleteRuta');
