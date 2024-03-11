@@ -54,13 +54,25 @@ class RutasController extends Controller
 
             // si no se ha escogido imagen, establecer la imagen del primer punto de interés
             $imagen = $request->imagen_principal;
-            if (!$imagen) {
+            if ($imagen === null) {
                 $primerPuntoInteresId = $request->puntos[0];
                 $primerPuntoInteres = PuntoInteres::find($primerPuntoInteresId);
                 if ($primerPuntoInteres) {
                     $imagen = $primerPuntoInteres->imagen;
                 }
+            } else {
+                // Subir la imagen principal y obtener su URL
+                $archivoController = new ArchivoController();
+                $response = $archivoController->subirImagen($request);
+                if ($response->getStatusCode() == 200) {
+                    $data = json_decode($response->getContent());
+                    $imagen = $data->url; // Obtener la URL de la imagen subida
+                } else {
+                    // Si la subida de la imagen falla, manejar el error
+                    return response()->json(['message' => 'Error uploading image', 'error' => $response->getContent()], $response->getStatusCode());
+                }
             }
+
 
             $nuevaRuta = Ruta::create([
                 'nombre' => $request->nombre,
@@ -87,19 +99,19 @@ class RutasController extends Controller
         }
     }
 
-    public function getRuta(Int $ruta, Request $request){
+    public function getRuta(Int $ruta, Request $request)
+    {
         $this->userID = PersonalAccessToken::findToken($request->token)->tokenable_id;
-       
+
         $rutaEdit = Ruta::find($ruta)->load(['puntos_interes']);
 
         return new RutasResource($rutaEdit);
-
     }
     public function deleteRuta(Request $request)
     {
         $id_ruta = $request->input('id_ruta');
         $ruta = Ruta::find($id_ruta);
-    
+
         if ($ruta) {
             $ruta->delete();
             return response()->json(['message' => 'Ruta eliminada correctamente']);
@@ -108,7 +120,8 @@ class RutasController extends Controller
         }
     }
 
-    public function updateRuta(Int $ruta, Request $request){
+    public function updateRuta(Int $ruta, Request $request)
+    {
         try {
             $validator = Validator::make($request->all(), [
                 'nombre' => ['required', 'string', 'max:255'],
@@ -130,7 +143,7 @@ class RutasController extends Controller
                 }
             }
 
-            $rutaUpdate-> update([
+            $rutaUpdate->update([
                 'nombre' => $request->nombre,
                 'descripcion' => $request->descripcion,
                 'fecha_creacion' => Carbon::now(),
@@ -156,5 +169,4 @@ class RutasController extends Controller
             return response()->json(['message' => 'Error al procesar la solicitud', $exception->getMessage()], 500);
         }
     }
-    
 }
