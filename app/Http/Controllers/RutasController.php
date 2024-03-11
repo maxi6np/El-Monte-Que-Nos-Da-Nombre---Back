@@ -87,9 +87,61 @@ class RutasController extends Controller
         }
     }
 
-    public function getRuta(Request $request){
-        $ruta = $request->input('ruta');
-        return response()->json(['ruta' => $ruta]);
+    public function getRuta(Int $ruta, Request $request){
+        $this->userID = PersonalAccessToken::findToken($request->token)->tokenable_id;
+       
+        $rutaEdit = Ruta::find($ruta)->load(['puntos_interes']);
 
+        return new RutasResource($rutaEdit);
+
+    }
+
+    public function updateRuta(Int $ruta, Request $request){
+        try {
+            $validator = Validator::make($request->all(), [
+                'nombre' => ['required', 'string', 'max:255'],
+                'descripcion' => ['required', 'string'],
+                'puntos' => ['required', 'array', 'min:1'],
+                'puntos.*' => ['required'],
+                'imagen_`principal' => ['nullable', 'file']
+            ]);
+
+            $rutaUpdate = Ruta::find($ruta);
+
+            // si no se ha escogido imagen, establecer la imagen del primer punto de interés
+            $imagen = $request->imagen_principal;
+            if (!$imagen) {
+                $primerPuntoInteresId = $request->puntos[0];
+                $primerPuntoInteres = PuntoInteres::find($primerPuntoInteresId);
+                if ($primerPuntoInteres) {
+                    $imagen = $primerPuntoInteres->imagen;
+                }
+            }
+
+            $rutaUpdate-> update([
+                'nombre' => $request->nombre,
+                'descripcion' => $request->descripcion,
+                'fecha_creacion' => Carbon::now(),
+                'duracion' => 4,
+                'dificultad' => 'media',
+                'imagen_principal' => $imagen,
+                'publica' => $request->publica,
+                'id_usuario' =>  PersonalAccessToken::findToken($request->token)->tokenable_id
+            ]);
+
+            $rutaUpdate->puntos_interes()->detach();
+
+            $rutaUpdate->puntos_interes()->attach(
+                $request->puntos
+            );
+
+            return response()->json(['message' => 'Ruta creada correctamente', $rutaUpdate], 201);
+
+            if ($validator->fails()) {
+                return response()->json(['message' => 'La validación ha fallado', 'errors' => $validator->errors()], 400);
+            }
+        } catch (\Illuminate\Database\QueryException $exception) {
+            return response()->json(['message' => 'Error al procesar la solicitud', $exception->getMessage()], 500);
+        }
     }
 }

@@ -35,4 +35,6 @@ Route::get('/trabajos', [PuntosInteresController::class, 'getTrabajos'])->name('
 
 Route::post('/planificar-ruta', [RutasController::class, 'storeRuta'])->name('storeRuta');
 
-Route::post('/encontrar-ruta', [RutasController::class, 'getRuta'])->name('getRuta');
+Route::post('/encontrar-ruta/{id}', [RutasController::class, 'getRuta'])->name('getRuta');
+
+Route::put('/editar-ruta/{id}', [RutasController::class, 'updateRuta'])->name('updateRuta');
