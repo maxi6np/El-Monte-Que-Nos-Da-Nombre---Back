@@ -125,16 +125,23 @@ class RutasController extends Controller
                 'puntos.*' => ['required'],
                 'imagen_`principal' => ['nullable', 'file']
             ]);
+           
 
             $rutaUpdate = Ruta::find($ruta);
 
 
-            $imagen = $request->imagen_principal;
-            if (!$imagen) {
-                $primerPuntoInteresId = $request->puntos[0];
-                $primerPuntoInteres = PuntoInteres::find($primerPuntoInteresId);
-                if ($primerPuntoInteres) {
-                    $imagen = $primerPuntoInteres->imagen;
+            $imagen_principal = $request->imagen_principal;
+            
+            if ($request->hasFile('imagen_principal')) {
+                $imagen = $request->file('imagen_principal');
+                $nombreImagen = 'ruta' . $request->nombre . '_img.' . $imagen->getClientOriginalExtension();
+                $rutaImagen = Storage::disk('public_assets')->putFileAs('uploads', $imagen, $nombreImagen);
+                $imagen_principal = 'http://127.0.0.1:8000/' . $rutaImagen;
+            } else if (!$imagen_principal) {
+                if ($request->has('puntos') && !empty($request->puntos)) {
+                    $primerPuntoInteresId = $request->puntos[0];
+                    $primerPuntoInteres = PuntoInteres::find($primerPuntoInteresId);
+                    $imagen_principal = $primerPuntoInteres->imagen;
                 }
             }
 
@@ -144,7 +151,7 @@ class RutasController extends Controller
                 'fecha_creacion' => Carbon::now(),
                 'duracion' => 4,
                 'dificultad' => 'media',
-                'imagen_principal' => $imagen,
+                'imagen_principal' => $imagen_principal,
                 'publica' => $request->publica,
                 'id_usuario' =>  PersonalAccessToken::findToken($request->token)->tokenable_id
             ]);
