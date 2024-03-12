@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class RutasController extends Controller
 {
@@ -52,24 +53,18 @@ class RutasController extends Controller
                 'imagen_`principal' => ['nullable', 'file']
             ]);
 
-            // si no se ha escogido imagen, establecer la imagen del primer punto de interés
-            $imagen = $request->imagen_principal;
-            if ($imagen === null) {
-                $primerPuntoInteresId = $request->puntos[0];
-                $primerPuntoInteres = PuntoInteres::find($primerPuntoInteresId);
-                if ($primerPuntoInteres) {
-                    $imagen = $primerPuntoInteres->imagen;
-                }
+            $imagen_principal = null;
+            // Si existe imagen, se guarda en el back con un nombre específico
+            if ($request->hasFile('imagen_principal')) {
+                $imagen = $request->file('imagen_principal');
+                $nombreImagen = 'ruta' . $request->nombre . '_img.' . $imagen->getClientOriginalExtension();
+                $rutaImagen = Storage::disk('public_assets')->putFileAs('uploads', $imagen, $nombreImagen);
+                $imagen_principal = 'http://127.0.0.1:8000/' . $rutaImagen;
             } else {
-                // Subir la imagen principal y obtener su URL
-                $archivoController = new ArchivoController();
-                $response = $archivoController->subirImagen($request);
-                if ($response->getStatusCode() == 200) {
-                    $data = json_decode($response->getContent());
-                    $imagen = $data->url; // Obtener la URL de la imagen subida
-                } else {
-                    // Si la subida de la imagen falla, manejar el error
-                    return response()->json(['message' => 'Error uploading image', 'error' => $response->getContent()], $response->getStatusCode());
+                if ($request->has('puntos') && !empty($request->puntos)) {
+                    $primerPuntoInteresId = $request->puntos[0];
+                    $primerPuntoInteres = PuntoInteres::find($primerPuntoInteresId);
+                    $imagen_principal = $primerPuntoInteres->imagen;
                 }
             }
 
@@ -80,7 +75,7 @@ class RutasController extends Controller
                 'fecha_creacion' => Carbon::now(),
                 'duracion' => 4,
                 'dificultad' => 'media',
-                'imagen_principal' => $imagen,
+                'imagen_principal' => $imagen_principal,
                 'publica' => $request->publica,
                 'id_usuario' =>  PersonalAccessToken::findToken($request->token)->tokenable_id
             ]);
@@ -160,7 +155,7 @@ class RutasController extends Controller
                 $request->puntos
             );
 
-            return response()->json(['message' => 'Ruta creada correctamente', $rutaUpdate], 201);
+            return response()->json(['message' => 'Ruta actualizada correctamente', $rutaUpdate], 201);
 
             if ($validator->fails()) {
                 return response()->json(['message' => 'La validación ha fallado', 'errors' => $validator->errors()], 400);
