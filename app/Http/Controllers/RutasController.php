@@ -128,13 +128,18 @@ class RutasController extends Controller
 
             $rutaUpdate = Ruta::find($ruta);
 
-            // si no se ha escogido imagen, establecer la imagen del primer punto de interés
-            $imagen = $request->imagen_principal;
-            if (!$imagen) {
-                $primerPuntoInteresId = $request->puntos[0];
-                $primerPuntoInteres = PuntoInteres::find($primerPuntoInteresId);
-                if ($primerPuntoInteres) {
-                    $imagen = $primerPuntoInteres->imagen;
+            $imagen_principal = null;
+            // Si existe imagen, se guarda en el back con un nombre específico
+            if ($request->hasFile('imagen_principal')) {
+                $imagen = $request->file('imagen_principal');
+                $nombreImagen = 'ruta' . $request->nombre . '_img.' . $imagen->getClientOriginalExtension();
+                $rutaImagen = Storage::disk('public_assets')->putFileAs('uploads', $imagen, $nombreImagen);
+                $imagen_principal = 'http://127.0.0.1:8000/' . $rutaImagen;
+            } else {
+                if ($request->has('puntos') && !empty($request->puntos)) {
+                    $primerPuntoInteresId = $request->puntos[0];
+                    $primerPuntoInteres = PuntoInteres::find($primerPuntoInteresId);
+                    $imagen_principal = $primerPuntoInteres->imagen;
                 }
             }
 
@@ -144,7 +149,7 @@ class RutasController extends Controller
                 'fecha_creacion' => Carbon::now(),
                 'duracion' => 4,
                 'dificultad' => 'media',
-                'imagen_principal' => $imagen,
+                'imagen_principal' => $imagen_principal,
                 'publica' => $request->publica,
                 'id_usuario' =>  PersonalAccessToken::findToken($request->token)->tokenable_id
             ]);
