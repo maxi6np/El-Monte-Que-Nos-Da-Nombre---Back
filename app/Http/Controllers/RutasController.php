@@ -31,7 +31,7 @@ class RutasController extends Controller
             }];
             $rutas = Ruta::with($relaciones)->where('publica', '=', true)->orWhere('id_usuario', '=', $this->userID)->get();
             $RutaCollection = new RutasCollection($rutas);
-            return $RutaCollection->additional(['categoriasPuntos' => $categorias]);
+            return $RutaCollection->additional(['categoriasPuntos' => $categorias, 'request_user_id' => $this->userID]);
         } else {
             $relaciones = ['puntos_interes.categoriasPuntos'];
             $rutas = Ruta::with($relaciones)->where('publica', true);
@@ -133,7 +133,7 @@ class RutasController extends Controller
 
             $rutaUpdate = Ruta::find($ruta);
 
-            // si no se ha escogido imagen, establecer la imagen del primer punto de interés
+
             $imagen = $request->imagen_principal;
             if (!$imagen) {
                 $primerPuntoInteresId = $request->puntos[0];
