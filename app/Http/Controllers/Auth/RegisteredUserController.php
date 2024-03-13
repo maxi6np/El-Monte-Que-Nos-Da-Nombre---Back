@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use DateTime;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -31,6 +32,11 @@ class RegisteredUserController extends Controller
                 'apellidos' => ['required', 'string', 'max:255'],
                 'fecha_nacimiento' => ['required','date'],
             ]);
+            $hoy = new DateTime();
+            $fecha = new DateTime($request->fecha_nacimiento);
+            if($fecha >= $hoy){
+                return response()->json(['message' => 'Introduzca una fecha válida'], 422);
+            }
 
 
             $user = User::create([
