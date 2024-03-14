@@ -136,7 +136,7 @@ class RutasController extends Controller
                 $imagen = $request->file('imagen_principal');
                 $nombreImagen = 'ruta' . $request->nombre . '_img.' . $imagen->getClientOriginalExtension();
                 $rutaImagen = Storage::disk('public_assets')->putFileAs('uploads', $imagen, $nombreImagen);
-                $imagen_principal = 'http://54.147.159.38:8000/' . $rutaImagen;
+                $imagen_principal =  $rutaImagen;
             } else if (!$imagen_principal) {
                 if ($request->has('puntos') && !empty($request->puntos)) {
                     $primerPuntoInteresId = $request->puntos[0];
